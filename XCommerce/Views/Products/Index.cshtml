@@ -1,0 +1,53 @@
+﻿@model  IEnumerable<XCommerce.Models.Product>
+
+<div class="product-list container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-xs-12 col-md-3 product_overview">
+                <div class="overlap">
+                    <a href="/products/detail/@product.Id">
+                        <img class="product_back_image" src="\content\images\@product.Brand.Name\iphone6s-silver-select-2015_AV2.png">
+                        <img class="product_front_image" src="\content\images\@product.Brand.Name\@product.ImagePath" />
+                    </a>
+
+                </div>
+                <p>@product.Brand.Name</p>
+                <hr class="hr_theme" />
+                <p>@product.Name</p>
+                <p>$@product.Price</p>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            //$("div").on({
+            //    mouseenter: function () {
+            //        $(this).addClass("product_back_image_move");
+            //    },
+            //    mouseleave: function () {
+            //        $(this).removeClass("product_back_image_move");
+            //    }
+            //}, ".product_back_image");
+
+            $(".product-list").on({
+                mouseenter: function () { 
+                    $(this).addClass("product-highlight");
+                    $(this).find("overlap.product_front_image").addClass("product_back_image_move");
+                    console.log("image move");
+                    event.stopPropagation();
+                },
+                mouseleave: function () {
+                    $(this).removeClass("product-highlight");
+                    $(this).removeClass("product_back_image_move");
+                    event.stopPropagation();
+                }
+
+            }, ".product_overview");
+        });
+    </script>
+}

@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Products via AJAX";
+}
+
+<div class="product-list container">
+    <div class="row">
+
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function(){
+            $.ajax({
+                url : "/api/products/1",
+                type : "GET",
+                dataType: "json",
+                success: function (data) {
+                    var product_list = $(".product-list .row");
+                    if (data === undefined) {
+                        console.log("undefined data");
+                    }
+                    else if (data.length === 0) {
+                        console.log("zero");
+                    }
+                    else {
+                        for (var i = 0; i < data.length; i++) {
+                            var content = "" +
+                                "<div class='col-xs-12 col-md-3 product_overview'>" +
+                                "   <div class='overlap'>" +
+                                "       <a href='/products/detail/" + data[i].id + "'>" +
+                                "           <img class='product_back_image' src='\\content\\images\\" + data[i].brand.name + "\\iphone6s-silver-select-2015_AV2.png'>" +
+                                "           <img class='product_front_image' src='\\content\\images\\" + data[i].brand.name + "\\" + data[i].imagePath + "'>" +
+                                "       </a>" +
+                                "   </div>" +
+                                "   <p>" + data[i].brand.name + "</p>" +
+                                "   <hr class='hr_theme' />" +
+                                "   <p>" + data[i].name + "</p>" +
+                                "   <p>$" + data[i].price + "</p>" +
+                                "</div>";
+                            console.log(content);
+                            product_list.append(content);
+                        }
+
+                    }
+                },
+
+                error: function (e) {
+
+                }
+
+            });
+        })
+    </script>
+    }

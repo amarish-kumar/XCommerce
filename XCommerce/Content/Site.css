@@ -1,0 +1,121 @@
+﻿body {
+    font-family: 'Lato', sans-serif;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    height: 100%;
+    /*background-image: url(\Content\Images\fcb1.jpg);*/
+    background-attachment: fixed;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    min-height: 100%;
+}
+
+.main {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.landing-main-image {
+    background: url(../Content/Images/Home/main.jpg);
+    height: 350px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding-top: 5px;
+    padding-bottom: 0;
+    color: aquamarine;
+}
+
+.landing-image div {
+    padding: 0;
+}
+.landing-image img {
+    /*height: 350px;*/
+    width: 100%;
+    opacity: 0.5;
+    transition: ease 1s;
+    -webkit-transition: ease 1s;
+    -moz-transition: ease 1s;
+    -o-transition: ease 1s; 
+}
+
+.landing-image-show {
+    opacity: 1 !important;
+}
+
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.product_overview {
+    padding: 10px 10px;    
+}
+
+.product-highlight {
+    border: 1px solid #808080;
+    box-shadow: rgba(0,0,0,.4) 2px 2px
+}
+
+.overlap {
+    /*height: 100px;*/
+    /*position: absolute;*/
+    padding: 10px 5px;
+    
+}
+
+.product_front_image {
+    z-index: 99;
+    position: absolute;
+    max-height: 250px;
+    position: relative;
+    left: -40px;
+}
+
+.product_back_image {
+    z-index: 1;
+    max-height: 250px;
+    position: relative;
+    left: 50px;
+    transition: ease 1s;
+    -webkit-transition: ease 1s;
+    -moz-transition: ease 1s;
+    -o-transition: ease 1s;    
+}
+
+.product_back_image_move {
+    left: 30px;    
+}
+
+.hr_theme {
+    /*color: cadetblue;*/
+    background-color: cadetblue;
+    height: 1px;
+}
+
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    height: 20px;
+    padding: 5px 0 0 0;
+
+}

@@ -1,0 +1,59 @@
+﻿@model XCommerce.Models.Product
+
+<div class="container">
+    <h4>Product</h4>
+    <hr />
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <img class="product_front_image" src="\content\images\@Model.Brand.Name\@Model.ImagePath" />
+        </div>
+        <div class="col-xs-12 col-md-8">
+            @*<p>
+                    @Html.DisplayNameFor(model => model.Brand.Name)
+                    @Html.DisplayFor(model => model.Brand.Name)
+                </p>*@
+            <p>
+                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayFor(model => model.Name)
+            </p>
+            <p>
+                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayFor(model => model.Description)
+            </p>
+            <p>
+                @Html.DisplayNameFor(model => model.Price)
+                $@Html.DisplayFor(model => model.Price)
+            </p>
+            <div class="btn-group">
+                <button id="addToCart" type="button" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section scripts{
+    <script>
+        $(function () {
+            $("#addToCart").on("click", function () {
+                $.ajax({
+                    url: "/api/cart",
+                    method: "POST",
+                    data: vm
+                })
+                .done(function () {
+                    toastr.success("Item was added to your cart");
+                })
+                .fail(function () {
+                    toastr.error("Error was encountered.");
+                });
+                
+                    
+            })
+        })
+
+    </script>    
+}
