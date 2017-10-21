@@ -1,7 +1,7 @@
 ﻿@model XCommerce.Models.Product
 
 <div class="container">
-    <h4>Product</h4>
+    <h3>@Model.Brand.Name - @Model.Name</h3>
     <hr />
     <div class="row">
         <div class="col-xs-12 col-md-4">
@@ -51,12 +51,12 @@
                     @Html.DisplayNameFor(model => model.Brand.Name)
                     @Html.DisplayFor(model => model.Brand.Name)
                 </p>*@
-            <p>
+            @*<p>
                 @Html.DisplayNameFor(model => model.Name)
                 @Html.DisplayFor(model => model.Name)
-            </p>
+            </p>*@
             <p>
-                @Html.DisplayNameFor(model => model.Description)
+                @*@Html.DisplayNameFor(model => model.Description)*@
                 @Html.DisplayFor(model => model.Description)
             </p>
             <p>
