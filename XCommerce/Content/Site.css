@@ -86,15 +86,15 @@ textarea {
     z-index: 99;
     position: absolute;
     max-height: 250px;
-    position: relative;
-    left: -40px;
+    position: relative;    
+    left: 70px;
 }
 
 .product_back_image {
     z-index: 1;
     max-height: 250px;
     position: relative;
-    left: 50px;
+    left: -80px;
     transition: ease 1s;
     -webkit-transition: ease 1s;
     -moz-transition: ease 1s;
@@ -102,7 +102,7 @@ textarea {
 }
 
 .product_back_image_move {
-    left: 30px;    
+    left: -100px;
 }
 
 .hr_theme {

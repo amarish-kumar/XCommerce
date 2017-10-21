@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Http;
+using AutoMapper;
+using XCommerce.App_Start;
 
 namespace XCommerce
 {
@@ -13,6 +15,9 @@ namespace XCommerce
     {
         protected void Application_Start()
         {
+            //automapper
+            Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+            //
             //to register webapi
             GlobalConfiguration.Configure(WebApiConfig.Register);
             //

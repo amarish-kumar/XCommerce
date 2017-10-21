@@ -6,7 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using XCommerce.Models;
 using System.Data.Entity;
-
+using XCommerce.Dtos;
+using AutoMapper;
 
 namespace XCommerce.Controllers.API
 {
@@ -18,44 +19,43 @@ namespace XCommerce.Controllers.API
         {
             db = new ApplicationDbContext();
         }
-
+                
         [HttpGet]
         //[Route("api/Products/{brandId}/{productId}")]
         //public IHttpActionResult GetProducts(int? brandId, int? productId)
-        public IHttpActionResult GetProducts()
+        public IHttpActionResult GetProducts(int? pageCount = null)
         {
-            var products = db.Products
+            //var products = (from u in db.Products                          
+            //              from p in u.ProductImages
+            //              select p).Take(10);
+
+            var productsQuery = db.Products
                 .Include(p => p.Brand)
-                .Where(p => p.ProductImages.Any(pi => pi.ProductId == p.Id))
-                //.Include(i => i.ProductImages)
-                .ToList();
+                .Include(p => p.ProductImages.Select(i => i.ImageType))
+                .OrderBy(p => p.Name).AsQueryable();
 
-            //var products = from p in db.Products
-            //               join im in db.ProductImages on p.Id equals im.ProductId
-            //               select new { p.Name };
+            if (pageCount != null)
+            {
+                int pageSkip = 10 * ((int)pageCount - 1);
+                productsQuery = productsQuery.Skip(pageSkip)
+                    .Take(10);
+            }
 
-            //var products = from p in db.Products
-            //               from im in p.ProductImages
-            //               select new { p.Name };
-
+            //var productsDto = Mapper.Map<Product, ProductDto>(products);
+            //var movie = Mapper.Map<MovieDto, Movie>(movieDto);
+            var products = productsQuery.ToList();
             return Ok(products);
         }
 
         [HttpGet]
-        [Route("api/Products/{brandId}")]
+        [Route("api/Products/ByBrand/{brandId}")]
         //public IHttpActionResult GetProducts(int? brandId, int? productId)
         public IHttpActionResult GetProducts(int brandId)
         {
-            //var products = db.Products
-            //    .Include(p => p.Brand)
-            //    .Where(p => p.BrandId == brandId)
-            //    .Include(i => i.ProductImages)
-            //    .ToList();
-
-            var products = from d in db.Products
-                           join b in db.Brands on d.BrandId equals b.Id
-                           join im in db.ProductImages on d.Id equals im.ProductId
-                           select new { d.Name, im.ImageId, im.ImagePath };
+            var products = db.Products
+                .Include(p => p.Brand)
+                .Include(p => p.ProductImages.Select(i => i.ImageType))
+                .ToList();
 
             return Ok(products);
         }
@@ -72,7 +72,6 @@ namespace XCommerce.Controllers.API
         //        return NotFound();
         //    else
         //        return Ok(product);
-
         //}
 
         [HttpPost]
@@ -89,7 +88,7 @@ namespace XCommerce.Controllers.API
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateMovie(int id, Product productDto)
+        public IHttpActionResult UpdateProduct(int id, Product productDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -103,11 +102,19 @@ namespace XCommerce.Controllers.API
             else
             {
                 //map
-                return Ok();            
+                return Ok();
             }
+        }
+
+        //[NonAction]
+        public List<ProductImage> GetImages(int productId)
+        {
+            var images = db.ProductImages.Where(p => p.ProductId == productId);
 
 
-        
+            return images
+                .ToList();
+                //.Select(Mapper.Map<ProductImage, ProductImageDto>);
         }
     }
 }

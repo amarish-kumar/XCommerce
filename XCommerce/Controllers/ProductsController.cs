@@ -8,6 +8,7 @@ using System.Data.Entity;
 
 namespace XCommerce.Controllers
 {
+    [AllowAnonymous]
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = null;
@@ -16,12 +17,20 @@ namespace XCommerce.Controllers
         {
             db = new ApplicationDbContext();
         }
+
         // GET: Products
         public ActionResult Index()
         {
+            //var products = db.Products
+            //    .Include(p => p.Brand)
+            //    .ToList();
+
             var products = db.Products
-                .Include(p => p.Brand)
-                .ToList();
+                    .Where(u => u.Id == 1)
+                    .SelectMany(u => u.ProductImages)
+                    .OrderBy(p => p.ImageId)
+                    .Take(10);
+
             return View(products);
         }
 

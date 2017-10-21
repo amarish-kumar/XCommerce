@@ -22,6 +22,7 @@ namespace XCommerce.Models
         public double Price { get; set; }
 
         public Brand Brand { get; set; }
+
         [Display(Name = "Brand Type")]        
         public int BrandId { get; set; }
                 

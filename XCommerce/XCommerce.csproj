@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Google.DataTable.Net.Wrapper, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.DataTable.Net.Wrapper.3.1.2.0\lib\Google.DataTable.Net.Wrapper.dll</HintPath>
       <Private>True</Private>
@@ -172,6 +176,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -181,6 +186,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Dtos\ProductImageDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,19 +206,39 @@
     <Compile Include="Migrations\201709031810142_AddProductImage.Designer.cs">
       <DependentUpon>201709031810142_AddProductImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709071601328_SeedUsers.cs" />
+    <Compile Include="Migrations\201709071601328_SeedUsers.Designer.cs">
+      <DependentUpon>201709071601328_SeedUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709131716264_DelProductProductImageRel.cs" />
+    <Compile Include="Migrations\201709131716264_DelProductProductImageRel.Designer.cs">
+      <DependentUpon>201709131716264_DelProductProductImageRel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709162245534_AddImageType.cs" />
+    <Compile Include="Migrations\201709162245534_AddImageType.Designer.cs">
+      <DependentUpon>201709162245534_AddImageType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709191501169_UpdateProductProductImageRel.cs" />
+    <Compile Include="Migrations\201709191501169_UpdateProductProductImageRel.Designer.cs">
+      <DependentUpon>201709191501169_UpdateProductProductImageRel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImageType.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Dtos\ProductDto.cs" />
     <Compile Include="Models\ProductImage.cs" />
+    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
@@ -307,7 +333,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Dtos\" />
     <Folder Include="Helper\" />
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +354,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709031810142_AddProductImage.resx">
       <DependentUpon>201709031810142_AddProductImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709071601328_SeedUsers.resx">
+      <DependentUpon>201709071601328_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709131716264_DelProductProductImageRel.resx">
+      <DependentUpon>201709131716264_DelProductProductImageRel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709162245534_AddImageType.resx">
+      <DependentUpon>201709162245534_AddImageType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709191501169_UpdateProductProductImageRel.resx">
+      <DependentUpon>201709191501169_UpdateProductProductImageRel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

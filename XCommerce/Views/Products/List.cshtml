@@ -12,9 +12,28 @@
 @section scripts
 {
     <script>
-        $(function(){
+        $(function () {
+
+            //Animate for product focus START
+            $(".product-list").on({
+                mouseenter: function () {
+                    $(this).addClass("product-highlight");
+                    $(this).find("img.product_back_image").addClass("product_back_image_move");
+                    console.log("image move");
+                    event.stopPropagation();
+                },
+                mouseleave: function () {
+                    $(this).removeClass("product-highlight");
+                    $(this).find("img.product_back_image").removeClass("product_back_image_move");
+                    event.stopPropagation();
+                }
+
+            }, ".product_overview");
+            //Animate for product focus END
+
+            //Ajax call for products API START
             $.ajax({
-                url : "/api/products/1",
+                url : "/api/products",
                 type : "GET",
                 dataType: "json",
                 success: function (data) {
@@ -27,12 +46,27 @@
                     }
                     else {
                         for (var i = 0; i < data.length; i++) {
+                            var frontImage = "blank.png";
+                            var backImage = "";
+                            if (data[i].productImages.length > 0) {
+                                if (data[i].productImages[0].imageType.description === "Main") {
+                                    frontImage = data[i].brand.name + "\\" + data[i].productImages[0].imagePath;
+                                }
+
+                                if (data[i].productImages[1].imageType.description === "Sub") {
+                                    backImage = data[i].brand.name + "\\" + data[i].productImages[1].imagePath;
+                                }
+                                
+                            }
+                            
+
                             var content = "" +
                                 "<div class='col-xs-12 col-md-3 product_overview'>" +
                                 "   <div class='overlap'>" +
                                 "       <a href='/products/detail/" + data[i].id + "'>" +
-                                "           <img class='product_back_image' src='\\content\\images\\" + data[i].brand.name + "\\iphone6s-silver-select-2015_AV2.png'>" +
-                                "           <img class='product_front_image' src='\\content\\images\\" + data[i].brand.name + "\\" + data[i].imagePath + "'>" +
+                                "           <img class='product_front_image' src='\\content\\images\\" + frontImage + "'>" + //data[i].productImages[0].imagePath + "'>" +
+                                "           <img class='product_back_image' src='\\content\\images\\" +  backImage + "'>" + //"\\iphone6s-silver-select-2015_AV2.png'>" +
+                                
                                 "       </a>" +
                                 "   </div>" +
                                 "   <p>" + data[i].brand.name + "</p>" +
@@ -43,15 +77,14 @@
                             console.log(content);
                             product_list.append(content);
                         }
-
                     }
                 },
 
                 error: function (e) {
-
                 }
-
             });
+            //Ajax call for products API END
+
         })
     </script>
     }
