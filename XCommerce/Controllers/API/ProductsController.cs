@@ -60,19 +60,22 @@ namespace XCommerce.Controllers.API
             return Ok(products);
         }
 
-        //[HttpGet]
-        //public IHttpActionResult GetProduct(int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest();
+        [HttpGet]
+        public IHttpActionResult GetProduct(int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
 
-        //    var product = db.Products.FirstOrDefault(p => p.Id == id);
+            var product = db.Products
+                .Include(p => p.Brand)
+                .Include(p => p.ProductImages.Select(i => i.ImageType))
+                .FirstOrDefault(p => p.Id == id);
 
-        //    if (product == null)
-        //        return NotFound();
-        //    else
-        //        return Ok(product);
-        //}
+            if (product == null)
+                return NotFound();
+            else
+                return Ok(product);
+        }
 
         [HttpPost]
         public IHttpActionResult CreateProduct(Product productDto)
@@ -104,17 +107,6 @@ namespace XCommerce.Controllers.API
                 //map
                 return Ok();
             }
-        }
-
-        //[NonAction]
-        public List<ProductImage> GetImages(int productId)
-        {
-            var images = db.ProductImages.Where(p => p.ProductId == productId);
-
-
-            return images
-                .ToList();
-                //.Select(Mapper.Map<ProductImage, ProductImageDto>);
         }
     }
 }
