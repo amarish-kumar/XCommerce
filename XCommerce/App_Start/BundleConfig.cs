@@ -14,6 +14,8 @@ namespace XCommerce
                         "~/Scripts/bootbox.js",
                         "~/Scripts/toastr.js",
                         "~/Scripts/typeahead.js",
+                        "~/scripts/datatables/jquery.datatables.js",
+                        "~/scripts/datatables/datatables.bootstrap.js",
                         "~/Scripts/respond.js"
                         ));
 
@@ -29,6 +31,7 @@ namespace XCommerce
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",
                       "~/Content/toastr.css",
+                      "~/content/datatables/css/datatables.bootstrap.css",
                       "~/Content/site.css"));
         }
     }

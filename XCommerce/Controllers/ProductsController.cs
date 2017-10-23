@@ -40,6 +40,7 @@ namespace XCommerce.Controllers
         {
             var product = db.Products
                 .Include(p => p.Brand)
+                .Include(p => p.ProductImages.Select(t => t.ImageType))
                 .Single(p => p.Id == id);
             return View(product);
         }
@@ -56,6 +57,16 @@ namespace XCommerce.Controllers
                 //products = products.Where(p => p.BrandId == );            
             }
 
+            return View(products);
+        }
+
+        [Authorize(Roles = RoleName.CanManageProducts)]
+        public ActionResult Manage()
+        {
+            var products = db.Products
+                .Include(b => b.Brand)
+                .Include(i => i.ProductImages.Select(t => t.ImageType))
+                .ToList();
             return View(products);
         }
 
